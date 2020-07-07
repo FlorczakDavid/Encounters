@@ -15,7 +15,7 @@ struct EncounterAreaView: View {
     
     var recievedCampain: FetchedResults<CampainItem>.Element?
     
-//    @State var encounterAreas: [EncounterArea]?
+    //    @State var encounterAreas: [EncounterArea]?
     @State var newEncounterArea = ""
     
     
@@ -46,9 +46,18 @@ struct EncounterAreaView: View {
                 Section(header: Text("Encounter Areas")) {
                     ForEach(recievedCampain!.areas ?? [], id: \.self) { encounterArea in
                         VStack {
-//                            NavigationLink(destination: EncounterTypeView(recievedCampain: Campain)) {
-                                Text(encounterArea.name).font(.headline)
-//                            }
+                            HStack {
+                                NavigationLink(destination: ResultView()) {
+                                    Text(encounterArea.name).font(.headline)
+                                }
+                                Spacer()
+                                Button(action: {
+                                    print("button")
+                                }){
+                                    Text("Edit")
+                                        .foregroundColor(Color.blue)
+                                }
+                            }
                         }
                     }.onDelete{ indexSet in
                         self.recievedCampain!.areas!.remove(at: indexSet.first! as Int)
